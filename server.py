@@ -14,7 +14,7 @@ ROOMS = {0:[[],[]]} #{Room-ID:[[client],[username]]}
 
 # checking if user provided Room IDs, and creating the room
 if len(sys.argv) > 3:
-    room_ids = sys.argv[3]
+    room_ids = eval(sys.argv[3])
     for i in room_ids:
         ROOMS[int(i)]
 
@@ -54,7 +54,7 @@ def receive():
         username = conn.recv(1024) # recieving username (upto 1024 bytes)
         conn.send('/<@room_id>/'.encode('utf-8')) # asking for Room ID
         room_id = int(conn.recv(512)) # recieving Room ID (upto 512 bytes)
-        if room_id != 0 and str(room_id) not in room_ids:
+        if room_id != 0 and room_id not in room_ids:
             conn.send(f'There is no chatroom with the ID: {str(room_id)}, Connecting to Chatroom-0'.encode('utf-8'))
             room_id = 0
         ROOMS[room_id][1].append(username)
