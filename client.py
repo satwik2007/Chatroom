@@ -1,21 +1,19 @@
 import threading
 import socket
-import sys
 
 # checking if the user provided address and port
-if len(sys.argv) < 3:
-    print("Usage: <script> <address> <port>")
-    exit()
     
-host = str(sys.argv[1])
-port = int(sys.argv[2])
+host = 'localhost'#input("Host IP: ")
+port = 25565 #int(input('Port: '))
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((host, port))
 
 username = input('Choose an Username: ')
-room_id = input('Room-ID: ')
 
+room_id = input("Room-ID: ")
+if not room_id:
+    room_id='0'
 # Recieve message from server
 def client_receive():
     while True:
